@@ -1,1 +1,2 @@
 * [CommunicatingWithComponents Communicating with Components]
+* [PlacingComponentsOnAPage Placing Components on a Page]
