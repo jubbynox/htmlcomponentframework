@@ -1,0 +1,58 @@
+<wiki:toc max_depth="2" />
+
+=Event Model=
+Communication with components is managed by event handling. A component may accept events that have been fired from its container (i.e. a web page or wrapping component) or a component may raise events to its container. The event model prevents a container and component from accessing each other in any way other than the carefully defined events. The event model also prevents two components within a container from communicating with each other unless the container is explicitly coded to route certain events.
+
+*NB Security* <br>These features make the communication secure; however, care must be taken when sharing sensitive information with components hosted externally to a web application. The components could submit information to a 3^rd^ party - if in doubt host the components in the same domain as the web application.
+
+=Firing an Event at a Component=
+In order to fire an event at a component the instance of the component is required and optionally an object to carry the event parameters. The event is fired on the component instance as shown in the following example:
+{{{
+component.fireEvent("eventName", eventParameters);
+}}}
+The value `"eventName"` refers to the name of the event as described in the HTML meta of the component (see [WritingComponents#AcceptedEvents "Accepted Events"] in the [WritingComponents writing components section]).
+
+==Obtaining a Component Instance==
+If a component was created programmatically (see [PlacingComponentsonaPage#ProgrammaticallyCreatinganInstanceofaComponent "Programmatically Creating an Instance of a Component"] in the [PlacingComponentsonaPage placing components on a page section]) then an instance of the component was returned from the function call that created the component. However, if the instance object is no longer available or the component was created inline (see [PlacingComponentsonaPage#AddinganInstanceofaComponent "Adding an Instance of a Component"] in the [PlacingComponentsonaPage placing components on a page section]) then the instance may be retrieved from the framework as follows:
+{{{
+var component = ComponentFramework.getComponent(componentId);
+}}}
+where:
+ * `componentId` <br>is the unique ID assigned to the component instance when it was created
+
+==Constructing the Event Parameters Object==
+If an event takes parameters then an object is required to carry their values. The event parameter names match the properties of the object. For example, the event parameters object for an event that takes two string parameters `string1` and `string2` could be created as:
+{{{
+var eventParameters = new Object(); 
+eventParameters.string1 = "string 1 parameter value"; 
+eventParameters.string2 = "string 2 parameter value";
+}}}
+
+=Raising an Event from within a Component=
+In order to raise an event to a container from within a component the framework is invoked directly with the event name and optionally an object to carry the event parameters, as shown in the following example:
+{{{
+ComponentFramework.raiseEvent("eventName", eventParameters);
+}}}
+The value `"eventName"` refers to the name of the event as described in the HTML meta of the component (see [WritingComponents#RaisedEvents "Raised Events"] in the [WritingComponents writing components section]). The `eventParameters` object is the same as described [#ConstructingtheEventParametersObject above].
+
+=Receiving an Event Raised from a Component=
+In order to receive an event raised from a component the instance of the component and a function to handle the event is required. The event handler function is added to the component instance's event listeners as shown in the following example:
+{{{
+component.addEventListener("eventName", eventHandlerFunction);
+}}}
+where:
+ * `component` <br>is the component instance (see [#ObtainingaComponentInstance Obtaining a Component Instance above]).
+ * `"eventName"` <br>is the name of the event as described in the HTML meta of the component (see [WritingComponents#RaisedEvents "Raised Events"] in the [WritingComponents writing components section]).
+ * `eventHandlerFunction` <br>is the function to handle the event, described [EventHandlerFunction below].
+
+==Event Handler Function==
+The event handler function is invoked by the framework with the event parameters object and could be defined as:
+{{{
+function eventHandlerFunction(eventParameters) {...}
+}}}
+The `eventParameters` object is the same as that described in [#ConstructingtheEventParametersObject constructing the event parameters object above].
+
+*NB Closures* <br>If the function accesses state variables of the component container or requires extra information from the component container then be careful with closures^[1]^.
+
+=References=
+ # [http://www.mollypages.org/misc/jsclo.mp JavaScript closures]
