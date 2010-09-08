@@ -1,1 +1,1 @@
-* [CommunicatingWithComponents]
+* [CommunicatingWithComponents Communicating with Components]
