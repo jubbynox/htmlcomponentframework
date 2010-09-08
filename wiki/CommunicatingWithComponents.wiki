@@ -1,4 +1,4 @@
-#labels Phase-Implementation,Featured
+#labels Howtocommunicatewithcomponents,Featured
 <wiki:toc max_depth="2" />
 
 =Event Model=
