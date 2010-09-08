@@ -1,0 +1,135 @@
+#summary How to write components
+#labels Featured
+<wiki:toc max_depth="4" />
+
+=Component Files=
+Components are written using a combination of HTML, CSS and !JavaScript. Each of these may exist in a separate file.
+
+=HTML=
+The HTML of a component consists of:
+ * meta to describe how the component is constructed and its supported events
+ * inclusion of required files
+ * body data to describe the component content
+
+==Meta==
+A component meta is stored in `meta` tags within the head element of the HTML.
+
+===Component Indicator and non-HTML5 Compliance===
+All components require the following `meta` tags:
+{{{
+<meta name="HTMLComponent" /> 
+<meta name="eventUrl" content="componentFramework/Event.html"/>
+}}}
+The `meta` tag with the `name` attribute of `"HTMLComponent"` indicates to the component framework that this is a component.<br>
+The `meta` tag with the `name` attribute of `"eventUrl"` tells the component the location of a file that can manage the event model for non-HTML5 compliant browsers.<br>
+`"componentFramework/Event.html"` must point to the location of the framework's `Event.html` file.
+
+===Constructor Definition===
+If the component has a non-default constructor then this must be defined with the following `meta` tag:
+{{{
+<meta scheme="JSONSchema" name="constructor" content='...' />
+}}}
+The `scheme` attribute tells the framework that the data in the `content` attribute is in JSON schema format^[1]^^[2]^. The `content` attribute data describes an object (the constructor) and properties (the constructor parameters). For example, a constructor that takes two string parameters `string1` and `string2` is defined by the JSON schema:
+{{{
+{
+  "type": "object", 
+  "properties": 
+  {
+    "string1": {"type": "string"}, 
+    "string2": {"type": "string"}
+  }
+}
+}}}
+
+===Event Definitions===
+Communication with components is managed by event handling. A component may accept events that have been fired from its container (i.e. a web page or wrapping component) or a component may raise events to its container. These events must be defined in the component meta; this makes the communication secure as the framework (combined with the !JavaScript same origin policy^[3]^) prevents a container and component from accessing each other in any way other than the carefully defined events. The event model also prevents two components within a container from communicating with each other unless the container is explicitly coded to route certain events.
+
+====Accepted Events====
+The following `meta` tag is used to define an event that the component can accept:
+{{{
+<meta scheme="PartialJSONSchema" name="acceptsEvent" content='...' />
+}}}
+The `scheme` attribute tells the framework that the data in the `content` attribute is in a partial JSON schema format. In this context this means that the content is a JSON object that has a name corresponding to the event name and a value that is a JSON schema describing the event data. The `name` attribute tells the framework that this is a definition of an event that the component can accept. 
+The JSON schema describes an object (the event) and properties (the event parameters). For example, an event named `"twoParameterEvent"` that takes two string parameters `string1` and `string2` is defined by the partial JSON schema:
+{{{
+{
+  "twoParameterEvent": 
+  {
+    "type": "object", 
+    "properties": 
+    {
+      "string1": {"type": "string"}, 
+      "string2": {"type": "string"}
+    }
+  }
+}
+}}}
+An event that carries no parameters can be defined like the following partial JSON schema:
+{{{
+{
+  "noParameterEvent": 
+  {
+    "type": "null"
+  }
+}
+}}}
+
+====Raised Events====
+The following `meta` tag is used to define an event that the component can raise:
+{{{
+<meta scheme="PartialJSONSchema" name="raisesEvent" content='...' />
+}}}
+This definition is the same as for accepted events, [#Accepted_Events above], except that the `name` attribute tells the framework that this is a definition of an event that the component can raise.
+
+==Included Files==
+The framework requires some CSS, some 3^rd^ party !JavaScript libraries and its own !JavaScript to be included. These are included in the head element of the HTML.
+
+===CSS Files===
+The framework CSS is included with:
+{{{
+<link rel="stylesheet" type="text/css" href="componentFramework/ComponentFramework.css"/>
+}}}
+`"componentFramework/ComponentFramework.css"` must point to the location of the framework's `ComponentFramework.css` file.
+Additional CSS should be included for the component's own styling (see [#CSS CSS section below]).
+
+===!JavaScript Files===
+The framework and dependent !JavaScript is included with:
+{{{
+<script type="text/javascript" src="jquery-1.3.2.min.js"></script> 
+<script type="text/javascript" src="json2.js"></script> 
+<script type="text/javascript" src="jsonschema-b4.js"></script> 
+<script type="text/javascript" src="componentFramework/ComponentFramework.js"></script>
+}}}
+`"componentFramework/ComponentFramework.js"` must point to the location of the framework's `ComponentFramework.js` file. Note that the framework depends on JQuery and libraries to parse JSON and JSON schemas. These files are controlled by 3^rd^ parties (see [Reference#Required_CSS_and_JavaScript "Required CSS and JavaScript"] in the [Reference reference section]). 
+Additional !JavaScript should be included to control the component's behaviour (see [#JavaScript JavaScript section below]).
+
+==Body==
+The content of a component is written in the the `body` element of the HTML, just like a regular web page. The framework places no restrictions on the content; the designer is free to add anything they want to construct the component. Because of this, and the fact that a regular HTML page is created, a component can be previewed and tested locally in a browser without the need of a server.
+
+=CSS=
+A component's styling should be stored in a separate CSS file, included in the `head` element of the HTML. The framework places no restrictions on the CSS; however it should be noted that all the styles used by the framework are named with the prefix `"cf_"` and so should not be overridden unless a change to the framework styling is desired (the framework styles are mainly to display an image when a component is loading and an image if there was a problem during component construction). When designing a component it may be useful to provide a parameter in the constructor to allow the dynamic linking of a user specific CSS file, so that the styling can be customised.
+
+=!JavaScript=
+A component's behaviour should be stored in a separate !JavaScript file, included in the `head` element of the HTML. The framework places a minimal set of restrictions on the component's Javascript as follows:
+
+==Main Class Name==
+The framework expects a class to instantiate in order to initialise the component's !JavaScript. The name of this class must be the same as the filename of the component's HTML (without the file extension). There are no restrictions on how the class is defined, only that it must be possible to create an instance of it using the `new` operator.
+
+==Constructor==
+The component's main class constructor (the function that is invoked by the `new` operator) must accept parameters that match in type and order those defined in the constructor schema (see [#Constructor_Definition Constructor Definition section above]). 
+The framework instantiates the class identified above using parameters supplied by the creator of a component. The parameters are checked against the constructor schema. 
+If no constructor has been defined then a default (parameterless) constructor is assumed.
+
+==Functions to Accept Events==
+The main class must define visible functions for all the events that the component can accept. The function names must match the event names defined in the accepted event partial schemas (see [#Accepted_Events Accepted Events section above]); likewise the function parameters must match in type and order those defined in the accepted event partial schemas. 
+For the example given in the [#Accepted_Events Accepted Events section] the function signature could be:
+{{{
+this.twoParameterEvent = function(string1, string2) {...};
+}}}
+
+When managing an event the framework maps the event object properties to the event function parameters and checks them against the accepted event partial schema.
+
+=References=
+ # [http://tools.ietf.org/html/draft-zyp-json-schema-02 A JSON Media Type for Describing the Structure and Meaning of JSON Documents]
+ # [http://groups.google.com/group/json-schema/web/json-schema-proposal-working-draft JSON Schema Proposal]
+ # [http://en.wikipedia.org/wiki/Same_origin_policy Same origin policy]
