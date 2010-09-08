@@ -15,7 +15,7 @@ component.fireEvent("eventName", eventParameters);
 The value `"eventName"` refers to the name of the event as described in the HTML meta of the component (see [WritingComponents#Accepted_Events "Accepted Events"] in the [WritingComponents writing components section]).
 
 ==Obtaining a Component Instance==
-If a component was created programmatically (see [PlacingComponentsOnAPage#Programmatically_Creating_an_Instance_of_a_Component "Programmatically Creating an Instance of a Component"] in the [PlacingComponentsOnAPage placing components on a page section]) then an instance of the component was returned from the function call that created the component. However, if the instance object is no longer available or the component was created inline (see [PlacingComponentsonaPage#Adding_an_Instance_of_a_Component "Adding an Instance of a Component"] in the [PlacingComponentsonaPage placing components on a page section]) then the instance may be retrieved from the framework as follows:
+If a component was created programmatically (see [PlacingComponentsOnAPage#Programmatically_Creating_an_Instance_of_a_Component "Programmatically Creating an Instance of a Component"] in the [PlacingComponentsOnAPage placing components on a page section]) then an instance of the component was returned from the function call that created the component. However, if the instance object is no longer available or the component was created inline (see [PlacingComponentsOnAPage#Adding_an_Instance_of_a_Component "Adding an Instance of a Component"] in the [PlacingComponentsOnAPage placing components on a page section]) then the instance may be retrieved from the framework as follows:
 {{{
 var component = ComponentFramework.getComponent(componentId);
 }}}
