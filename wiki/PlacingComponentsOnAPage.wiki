@@ -87,7 +87,7 @@ var component = ComponentFramework.newComponent(componentId, "component name", o
 }}}
 where:
  * `componentId` <br>is a unique ID with which the component instance can be referred to by the framework.
- * '"component name"` <br>is the name of the component definition, used previously to include the component.
+ * `"component name"` <br>is the name of the component definition, used previously to include the component.
  * `optionalParameters` <br>are the parameters to pass to the component constructor and may be left out if there are no constructor parameters; otherwise the value is an object with properties that match the parameter names, e.g.:
 {{{
 var parameters = new Object();
