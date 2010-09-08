@@ -43,14 +43,14 @@ component.addEventListener("eventName", eventHandlerFunction);
 where:
  * `component` <br>is the component instance (see [#ObtainingaComponentInstance Obtaining a Component Instance above]).
  * `"eventName"` <br>is the name of the event as described in the HTML meta of the component (see [WritingComponents#RaisedEvents "Raised Events"] in the [WritingComponents writing components section]).
- * `eventHandlerFunction` <br>is the function to handle the event, described [EventHandlerFunction below].
+ * `eventHandlerFunction` <br>is the function to handle the event, described [#EventHandlerFunction below].
 
 ==Event Handler Function==
 The event handler function is invoked by the framework with the event parameters object and could be defined as:
 {{{
 function eventHandlerFunction(eventParameters) {...}
 }}}
-The `eventParameters` object is the same as that described in [#ConstructingtheEventParametersObject constructing the event parameters object above].
+The `eventParameters` object is the same as that described in [CommunicatingWithComponents#ConstructingtheEventParametersObject constructing the event parameters object above].
 
 *NB Closures* <br>If the function accesses state variables of the component container or requires extra information from the component container then be careful with closures^[1]^.
 
