@@ -4,4 +4,4 @@
 =Banacek Website=
 http://www.banacek.org
 
-An example of a site that uses the framework. It contains the entire recorded catalogue of Banacek, the band.
+An example of a site that uses the framework. It contains the entire recorded catalogue of the band Banacek.
