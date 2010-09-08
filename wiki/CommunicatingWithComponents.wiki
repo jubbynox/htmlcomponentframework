@@ -1,4 +1,5 @@
-#labels Howtocommunicatewithcomponents,Featured
+#summary How to communicate with components.
+#labels Featured
 <wiki:toc max_depth="2" />
 
 =Event Model=
