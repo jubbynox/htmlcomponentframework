@@ -1,4 +1,4 @@
-#summary How to communicate with components.
+#summary How to communicate with components by firing, raising and receiving event notifications.
 #labels Featured
 <wiki:toc max_depth="2" />
 
