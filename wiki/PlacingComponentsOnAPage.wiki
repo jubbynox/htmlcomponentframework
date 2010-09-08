@@ -1,4 +1,5 @@
 #summary How to place components on an HTML page.
+#labels Featured
 <wiki:toc max_depth="3" />
 
 =Meta Data and Included Files Setup=
