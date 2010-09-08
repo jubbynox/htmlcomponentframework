@@ -1,0 +1,197 @@
+#summary Reference information
+#labels Featured
+<wiki:toc max_depth="3" />
+
+=Framework Files=
+The framework consists of the following files:
+ * ajax-loader.gif <br>An animated GIF to indicate that a component is loading.
+ * !ComponentFramework.css <br>CSS used by the component framework.
+ * !ComponentFramework.js <br>The component framework !JavaScript.
+ *  Event.html <br>An HTML page to manage event handling for non-HTML5 browsers.
+ * infinite.png <br>An image to display if a component hierarchy is detected to have infinite recursion.
+
+=Required CSS and !JavaScript=
+The framework requires CSS and !JavaScript to be included in components and web pages that include components.
+==Dependencies==
+The framework depends on JQuery and libraries to parse JSON and JSON schemas. These files must be hosted by the component owner and included in the component HTML `head`:
+ * [http://jquery.com/ jquery-1.3.2.min.js] <br>JQuery is used to read and manipulate the DOM of a component or component container. The framework is built against version 1.3.3.
+ * [http://www.json.org/json2.js json2.js] <br>JSON2 is used to parse JSON.
+ * [http://groups.google.com/group/json-schema jsonschema-b4.js] <br>JSON schema is used to schema check component construction and event data.
+
+==Framework==
+The framework itself requires two files to be included in the component HTML `head`:
+ * !ComponentFramework.css
+ * !ComponentFramework.js
+
+=Component Meta Information=
+Including or defining a component requires the use of `meta` tags within the HTML `head`.
+
+==Meta for Including and Defining a Component==
+
+===Non-HTML5 Event Model===
+The following tag is to support the event model in non-HTML5 browsers:
+{{{
+<meta name="eventUrl" content="componentFramework/Event.html"/>
+}}}
+`"componentFramework/Event.html"` must point to the location of the framework's `Event.html` file.
+
+==Meta for Including a Component==
+
+===Inline Component Inclusion===
+The following tag includes a component within a web page so that it can be placed inline, within the page HTML.
+{{{
+<meta scheme="JSON" name="includeComponent" content='{"name":"component name","url":"URL to HTML of component"}' />
+}}}
+The `scheme` attribute tells the framework that the data in the `content` attribute is in JSON format. The `name` attribute identifies to the framework that a component is to be included. The `content` data is JSON describing a name for the component and where to find its HTML.
+
+==Meta for Defining a Component==
+
+===Component Marker===
+The following tag indicates to the framework that the web page is a component.
+{{{
+<meta name="HTMLComponent" />
+}}}
+
+===Constructor Definition===
+If the component has a non-default constructor then this must be defined with the following `meta` tag:
+{{{
+<meta scheme="JSONSchema" name="constructor" content='...' />
+}}}
+The `scheme` attribute tells the framework that the data in the `content` attribute is in JSON schema format. The `content` attribute data describes an object (the constructor) and properties (the constructor parameters). For example, a constructor that takes two string parameters `string1` and `string2` is defined by the JSON schema:
+{{{
+{
+  "type": "object", 
+  "properties": 
+  {
+    "string1": {"type": "string"}, 
+    "string2": {"type": "string"}
+  }
+}
+}}}
+
+===Accepts Event Definition===
+The following `meta` tag is used to define an event that the component can accept:
+{{{
+<meta scheme="PartialJSONSchema" name="acceptsEvent" content='...' />
+}}}
+The `scheme` attribute tells the framework that the data in the `content` attribute is in a partial JSON schema format. In this context this means that the content is a JSON object that has a name corresponding to the event name and a value that is a JSON schema describing the event data. The `name` attribute tells the framework that this is a definition of an event that the component can accept. 
+The JSON schema describes an object (the event) and properties (the event parameters). For example, an event named `"twoParameterEvent"` that takes two string parameters `string1` and `string2` is defined by the partial JSON schema:
+{{{
+{
+  "twoParameterEvent": 
+  {
+    "type": "object", 
+    "properties": 
+    {
+      "string1": {"type": "string"}, 
+      "string2": {"type": "string"}
+    }
+  }
+}
+}}}
+An event that carries no parameters can be defined like the following partial JSON schema:
+{{{
+{
+  "noParameterEvent": 
+  {
+    "type": "null"
+  }
+}
+}}}
+
+===Raises Event Definition===
+The following `meta` tag is used to define an event that the component can raise:
+{{{
+<meta scheme="PartialJSONSchema" name="raisesEvent" content='...' />
+}}}
+This definition is the same as for accepted events except that the `name` attribute tells the framework that this is a definition of an event that the component can raise.
+
+=Inline Components=
+A component is included inline, within the HTML, using a `div` tag, e.g.:
+{{{
+<div id="componentID" title="component name" class="cf_component_marker" />
+}}}
+The `id` attribute associates a unique identifier with the component instance; this is used by the framework to refer to the instance. The `title` attribute references the name used when the component definition was included. The `class` attribute must contain `"cf_component_marker"`, which is a style from the framework. It indicates to the framework that this `div` element is an inline component.
+
+==Component Constructor Parameters==
+Constructor parameters are added with hidden `input` elements as children of the component `div` element, e.g.:
+{{{
+<div title="component name" class="cf_component_marker" >
+   <input type="hidden" name="parameterName" value="..." />
+</div>
+}}}
+Each `input` element is a parameter to the constructor. The `name` attribute defines the parameter name; the `value` attribute defines the value of the parameter. The value may be a primitive or a JSON object.
+
+==Component Loaded Callback==
+In order to specify a function to be called when the component has loaded add another parameter to the constructor parameters list with the name `loadedCallback`. The value of this parameter is the name of the function to call, e.g.:
+{{{
+   ...
+   <input type="hidden" name="loadedCallback" value="functionNameToCallWhenLoaded" />
+   ...
+}}}
+
+=Framework !JavaScript API=
+==Component Framework Object==
+
+===!ComponentFramework.getComponent(componentId)===
+Gets a component object (a component that has already been created).
+ * componentId <br>The ID given to the component when it was created.
+
+The component object is returned.
+
+===!ComponentFramework.includeComponent(friendlyClassName, url)===
+Programmatically includes a component.
+ * friendlyClassName <br>A class name to give the component. Used when creating an instance of the component.
+ * url <br>The URL to the component's HTML.
+
+===!ComponentFramework.loadAndRender()===
+Loads and renders inline components. This should be attached to the `onload` event handler for a web page that includes components.
+
+===!ComponentFramework.newComponent(componentId, friendlyClassName, parameters, loadedCallback)===
+Creates a new instance of a component.
+ * componentId <br>An unique ID to assign to the instance of the component.
+ * friendlyClassName <br>The class name given to the component when it was included.
+ * parameters (optional) <br>An object carrying the parameters to pass to the component constructor. The object property names match the constructor parameter names, e.g.:
+{{{
+var parameters = new Object();
+parameters.parameter1Name = valueOfParameter1;
+parameters.parameter2Name = valueOfParameter2;
+...
+}}}
+ * loadedCallback (optional) <br>A function to invoke when the component has loaded.
+
+The new component object is returned.
+
+===!ComponentFramework.raiseEvent(eventName, eventProperties)===
+Raises an event to the component's container.
+ * eventName <br>The name of the event as described in the HTML meta of the component.
+ * eventProperties <br>An object carrying the event parameters. The object property names match the event parameter names, e.g.:
+{{{
+var eventParameters = new Object(); 
+eventParameters.string1 = "string 1 parameter value"; 
+eventParameters.string2 = "string 2 parameter value";
+}}}
+
+===!ComponentFramework.removeComponent(componentId)===
+Removes a component from the framework and releases its resources.
+ * componentId <br>The ID given to the component when it was created.
+
+==Component Object==
+The component object returned from `ComponentFramework.getComponent` and `ComponentFramework.newComponent` has the following methods defined:
+
+===.addEventListener(eventName, eventHandlerFunction)===
+Adds an event handler function to the component object's event listeners.
+ * eventName <br>The name of the event as described in the HTML meta of the component.
+ * eventHandlerFunction <br>The function to handle the event. The event handler function is invoked by the framework with the event parameters object and could be defined as:
+{{{
+function eventHandlerFunction(eventParameters) {...}
+}}}
+where `eventParameters` is an object with property names that match the event parameter names.
+
+===.fireEvent(eventName, eventParameters)===
+Fires an event at the component object.
+ * eventName <br>The name of the event as described in the HTML meta of the component.
+ * eventParameters <br>An object with property names that match the event parameter names.
+
+===.getElement()===
+Gets the DOM element of the component object. The DOM element can be inserted into the page DOM using whichever technique is preferred.
