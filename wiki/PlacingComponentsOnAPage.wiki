@@ -1,0 +1,106 @@
+#summary How to place components on an HTML page.
+<wiki:toc max_depth="3" />
+
+=Meta Data and Included Files Setup=
+Before placing a component the framework requires some meta data and links to CSS and !JavaScript within the head element of the page:
+
+==Event Meta==
+In order to support non-HTML5 compliant browsers the framework needs to know the location of a file that can manage the event model for these browsers. This is done with the following meta:
+{{{
+<meta name="eventUrl" content="componentFramework/Event.html"/>
+}}}
+`"componentFramework/Event.html"` must point to the location of the framework's Event.html file.
+
+==CSS==
+The framework requires a small CSS file:
+{{{
+<link rel="stylesheet" type="text/css" href="componentFramework/ComponentFramework.css"/>
+}}}
+`"componentFramework/ComponentFramework.css"` must point to the location of the framework's !ComponentFramework.css file.
+
+==!JavaScript==
+The framework and dependent !JavaScript is included with:
+{{{
+<script type="text/javascript" src="jquery-1.3.2.min.js"></script> 
+<script type="text/javascript" src="json2.js"></script> 
+<script type="text/javascript" src="jsonschema-b4.js"></script> 
+<script type="text/javascript" src="componentFramework/ComponentFramework.js"></script>
+}}}
+`"componentFramework/ComponentFramework.js"` must point to the location of the framework's !ComponentFramework.js file. Note that the framework depends on JQuery and libraries to parse JSON and JSON schemas. These files are controlled by 3^rd^ parties (see [Reference#Required_CSS_and_JavaScript "Required CSS and JavaScript"] in the [Reference reference section]). 
+If the page is not a component itself then the following must be added to the `onload` event handler of the `body` tag to initialise the framework:
+{{{
+<body onload="ComponentFramework.loadAndRender();">
+}}}
+
+=Inline Components=
+Components may be placed inline by adding markup to a page.
+
+==Including a Component Definition==
+To use an inline component its definition must first be included using a `meta` element within the `head` element of the page, e.g.:
+{{{
+<meta scheme="JSON" name="includeComponent" content='{"name":"component name","url":"URL to HTML of component"}' />
+}}}
+The `scheme` attribute tells the framework that the data in the content attribute is in JSON format. The `name` attribute identifies to the framework that a component is to be included. The `content` data is JSON describing a name for the component and where to find its HTML. The name can be any string and will be used later to reference the component definition when adding it to the page.
+
+==Adding an Instance of a Component==
+An instance of the component can be added inline to the page body using a `div` element, e.g.:
+{{{
+<div id="componentID" title="component name" class="cf_component_marker" />
+}}}
+The `id` attribute associates a unique identifier with the component instance; this is used by the framework to refer to the instance. The `title` attribute references the name used when the component definition was included. The `class` attribute must contain `"cf_component_marker"`, which is a style from the framework. It indicates to the framework that this `div` element is an inline component.
+
+===Supplying Constructor Parameters===
+A component may require constructor parameters; the HTML meta of the component will indicate what these are (see [WritingComponents#Constructor_Definition "Constructor Definition"] in the [WritingComponents writing components section]). Constructor parameters are added with hidden `input` elements as children of the component `div` element, e.g.:
+{{{
+<div title="component name" class="cf_component_marker" >
+   <input type="hidden" name="parameterName" value="..." />
+</div>
+}}}
+Each `input` element is a parameter to the constructor. The `name` attribute defines the parameter name; the `value` attribute defines the value of the parameter. The value may be a primitive or a JSON object.
+
+===Callback when Component is Loaded===
+It may be useful to know when a component has loaded. In order to specify a function to be called when the component has loaded add another parameter to the constructor parameters list with the name `loadedCallback`. The value of this parameter is the name of the function to call, e.g.:
+{{{
+   ...
+   <input type="hidden" name="loadedCallback" value="functionNameToCallWhenLoaded" />
+   ...
+}}}
+
+=Programmatically Adding Components=
+The steps involved in adding a component programmatically are:
+ # include the component definition
+ # create an instance of the component
+ # add the component to the DOM
+
+==Programmatically Including a Component Definition==
+A component is included with the following:
+{{{
+ComponentFramework.includeComponent("component name", "URL to HTML of component");
+}}}
+The values passed to the `includeComponent` method match those previously described for including inline components.
+
+==Programmatically Creating an Instance of a Component==
+An instance of a component is created with the following:
+{{{
+var component = ComponentFramework.newComponent(componentId, "component name", optionalParameters, optionalLoadedCallbackFunction);
+}}}
+where:
+ * `componentId` <br>is a unique ID with which the component instance can be referred to by the framework.
+ * 'c"omponent name"` <br>is the name of the component definition, used previously to include the component.
+ * `optionalParameters` <br>are the parameters to pass to the component constructor and may be left out if there are no constructor parameters; otherwise the value is an object with properties that match the parameter names, e.g.:
+{{{
+var parameters = new Object();
+parameters.parameter1Name = valueOfParameter1;
+parameters.parameter2Name = valueOfParameter2;
+...
+}}}
+ * `optionalLoadedCallbackFunction` <br>is an optional function to call when the component has loaded.
+
+==Adding a Component to the DOM==
+The object returned from the `newComponent` method invocation is a component object (see [Reference#Component_Object "Component Object"] in the [Reference reference section]). The actual DOM element of the component can be retrieved with:
+{{{
+var componentDOMElement = component.getElement();
+}}}
+where `component` is the component object returned from the `newComponent` method invocation.
+
+The DOM element can be inserted into the page DOM using whichever technique is preferred.
