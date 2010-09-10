@@ -1,0 +1,31 @@
+<project name="Component Framework Build" default="build" basedir=".">
+    
+	<target name="build" description="Deploys component framework.">
+		
+		<mkdir dir="./temp"/>
+		
+	    <!-- Compress javascript. -->
+        <apply executable="java" parallel="false">
+            <fileset dir="../src/js" includes="**/*.js" />
+            <arg line="-jar" />
+            <arg path="../library/java/yuicompressor-2.4.2.jar" />
+            <srcfile />
+            <arg line="-o" />
+            <mapper type="glob" from="*" to="./temp/*" />
+            <targetfile />
+        </apply>
+		
+		<!-- Concatenate and deploy javascript. -->
+		<concat destfile="../output/ComponentFramework.js">
+			<filelist dir="../" files="licence.txt"/>
+	        <fileset dir="./temp" includes="*.js" />
+	    </concat>
+		
+	    <!-- Deploy static resources. -->
+        <copy todir="../output" flatten="true" includeEmptyDirs="false">
+            <fileset dir="../src" excludes="**/*.js"/>
+        </copy>
+		
+	</target>
+    
+</project>

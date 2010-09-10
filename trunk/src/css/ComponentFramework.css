@@ -1,0 +1,55 @@
+/**
+ * HTMl Component Framework.
+ *
+ * Copyright (c) 2010, Joel Laird
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * Neither the name of Joel Laird nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+body.cf_loading
+{
+    /* Background image courtesy of: http://www.ajaxload.info */
+    background-image: url('/componentFramework/ajax-loader.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+body.cf_error_construction
+{
+    background-image: url('/componentFramework/infinite.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+div.cf_error_construction
+{
+    display: none;
+}
+
+div.cf_error_infinite_recursion
+{
+    background-image: url('/componentFramework/infinite.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+ 
+div.cf_component_marker
+{
+    /* Class used as a marker. */
+}
+
+iframe.cf_iframe
+{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}
