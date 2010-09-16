@@ -18,11 +18,11 @@ A component meta is stored in `meta` tags within the head element of the HTML.
 All components require the following `meta` tags:
 {{{
 <meta name="HTMLComponent" /> 
-<meta name="eventUrl" content="componentFramework/Event.html"/>
+<meta name="eventUrl" content="http://component.domain.com/Event.html"/>
 }}}
 The `meta` tag with the `name` attribute of `"HTMLComponent"` indicates to the component framework that this is a component.<br>
 The `meta` tag with the `name` attribute of `"eventUrl"` tells the component the location of a file that can manage the event model for non-HTML5 compliant browsers.<br>
-`"componentFramework/Event.html"` must point to the location of the framework's `Event.html` file.
+`"http://component.domain.com/Event.html"` must point to the location of the framework's `Event.html` file, hosted in the same domain as the component. Go to this project's [http://code.google.com/p/htmlcomponentframework/downloads/detail?name=Event.html&can=2&q= downloads section for a copy of this file].
 
 ===Constructor Definition===
 If the component has a non-default constructor then this must be defined with the following `meta` tag:
@@ -89,18 +89,18 @@ The framework CSS is included with:
 {{{
 <link rel="stylesheet" type="text/css" href="componentFramework/ComponentFramework.css"/>
 }}}
-`"componentFramework/ComponentFramework.css"` must point to the location of the framework's `ComponentFramework.css` file.
+`"componentFramework/ComponentFramework.css"` must point to the location of the framework's `ComponentFramework.css` file. See [http://htmlcomponentframework.googlecode.com/svn/releases/] for the releases of this file. There is no need to make a copy of this file; its online location can be referenced.
 Additional CSS should be included for the component's own styling (see [#CSS CSS section below]).
 
 ===!JavaScript Files===
 The framework and dependent !JavaScript is included with:
 {{{
-<script type="text/javascript" src="jquery-1.3.2.min.js"></script> 
-<script type="text/javascript" src="json2.js"></script> 
-<script type="text/javascript" src="jsonschema-b4.js"></script> 
+<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jquery-1.3.2.min.js"></script> 
+<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/json2.js"></script> 
+<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jsonschema-b4.js"></script> 
 <script type="text/javascript" src="componentFramework/ComponentFramework.js"></script>
 }}}
-`"componentFramework/ComponentFramework.js"` must point to the location of the framework's `ComponentFramework.js` file. Note that the framework depends on JQuery and libraries to parse JSON and JSON schemas. These files are controlled by 3^rd^ parties (see [Reference#Required_CSS_and_JavaScript "Required CSS and JavaScript"] in the [Reference reference section]). 
+`"componentFramework/ComponentFramework.js"` must point to the location of the framework's `ComponentFramework.js` file. See [http://htmlcomponentframework.googlecode.com/svn/releases/] for the releases of this file. There is no need to make a copy of this file; its online location can be referenced. Note that the framework depends on JQuery and libraries to parse JSON and JSON schemas. These files are controlled by 3^rd^ parties (see [Reference#Required_CSS_and_JavaScript "Required CSS and JavaScript"] in the [Reference reference section]). 
 Additional !JavaScript should be included to control the component's behaviour (see [#JavaScript JavaScript section below]).
 
 ==Body==
