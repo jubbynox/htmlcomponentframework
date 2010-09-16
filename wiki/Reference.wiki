@@ -22,6 +22,7 @@ The framework depends on JQuery and libraries to parse JSON and JSON schemas. Th
 The framework itself requires two files to be included in the component HTML `head`:
  * !ComponentFramework.css
  * !ComponentFramework.js
+See this project's home for the location of these files.
 
 =Component Meta Information=
 Including or defining a component requires the use of `meta` tags within the HTML `head`.
