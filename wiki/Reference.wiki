@@ -13,16 +13,17 @@ The framework consists of the following files:
 =Required CSS and !JavaScript=
 The framework requires CSS and !JavaScript to be included in components and web pages that include components.
 ==Dependencies==
-The framework depends on JQuery and libraries to parse JSON and JSON schemas. These files must be hosted by the component owner and included in the component HTML `head`:
+The framework depends on JQuery and libraries to parse JSON and JSON schemas. These files must be included in the component HTML `head`:
  * [http://jquery.com/ jquery-1.3.2.min.js] <br>JQuery is used to read and manipulate the DOM of a component or component container. The framework is built against version 1.3.3.
  * [http://www.json.org/json2.js json2.js] <br>JSON2 is used to parse JSON.
  * [http://groups.google.com/group/json-schema jsonschema-b4.js] <br>JSON schema is used to schema check component construction and event data.
+These files can be found at: http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs
 
 ==Framework==
 The framework itself requires two files to be included in the component HTML `head`:
  * !ComponentFramework.css
  * !ComponentFramework.js
-See this project's home for the location of these files.
+See [http://htmlcomponentframework.googlecode.com/svn/releases/] for the releases of these files. There is no need to make copies of these files; their online location can be referenced.
 
 =Component Meta Information=
 Including or defining a component requires the use of `meta` tags within the HTML `head`.
