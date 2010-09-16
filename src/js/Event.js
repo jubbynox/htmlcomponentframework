@@ -230,21 +230,17 @@ function Event()
 	 */
 	Event.informParentOfEventUrl = function(componentId)
 	{
-		// Check that there is a parent.
-		if (parent.location.pathname != location.pathname)
-		{
-			// Get parent eventUrl.
-			var parentEventUrlSearch = /.*parentEventUrl=([^&]*)/.exec(location.search);
-        	if (parentEventUrlSearch != null)
-        	{
-        		parentEventUrl = unescape(parentEventUrlSearch[1]);
-        	}
-			
-        	// Raise the event (even if an event URL has not been defined - this will be used to indicate that the component has loaded).
-        	var eventProperties = new Object();
-        	eventProperties.eventUrl = Event.getEventUrl();
-        	Event.raise(componentId, Event.REGISTER_CHILD_EVENT_URL, eventProperties);
-		}
+		// Get parent eventUrl.
+		var parentEventUrlSearch = /.*parentEventUrl=([^&]*)/.exec(location.search);
+    	if (parentEventUrlSearch != null)
+    	{
+    		parentEventUrl = unescape(parentEventUrlSearch[1]);
+    	}
+		
+    	// Raise the event (even if an event URL has not been defined - this will be used to indicate that the component has loaded).
+    	var eventProperties = new Object();
+    	eventProperties.eventUrl = Event.getEventUrl();
+    	Event.raise(componentId, Event.REGISTER_CHILD_EVENT_URL, eventProperties);
 	};
 	
 	/**

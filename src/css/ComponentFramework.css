@@ -1,5 +1,5 @@
 /**
- * HTMl Component Framework.
+ * HTML Component Framework.
  *
  * Copyright (c) 2010, Joel Laird
  * All rights reserved.
@@ -15,14 +15,14 @@
 body.cf_loading
 {
     /* Background image courtesy of: http://www.ajaxload.info */
-    background-image: url('/componentFramework/ajax-loader.gif');
+    background-image: url('http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ajax-loader.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 body.cf_error_construction
 {
-    background-image: url('/componentFramework/infinite.png');
+    background-image: url('http://htmlcomponentframework.googlecode.com/svn/releases/1.0/infinite.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -34,7 +34,7 @@ div.cf_error_construction
 
 div.cf_error_infinite_recursion
 {
-    background-image: url('/componentFramework/infinite.png');
+    background-image: url('http://htmlcomponentframework.googlecode.com/svn/releases/1.0/infinite.png');
     background-repeat: no-repeat;
     background-position: center center;
 }
