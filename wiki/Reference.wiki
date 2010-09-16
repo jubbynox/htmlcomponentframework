@@ -7,7 +7,7 @@ The framework consists of the following files:
  * ajax-loader.gif <br>An animated GIF to indicate that a component is loading.
  * !ComponentFramework.css <br>CSS used by the component framework.
  * !ComponentFramework.js <br>The component framework !JavaScript.
- *  Event.html <br>An HTML page to manage event handling for non-HTML5 browsers.
+ *  Event.html <br>An HTML page to manage event handling for non-HTML5 browsers. This file must be hosted in the same domain as the component.
  * infinite.png <br>An image to display if a component hierarchy is detected to have infinite recursion.
 
 =Required CSS and !JavaScript=
@@ -31,9 +31,9 @@ Including or defining a component requires the use of `meta` tags within the HTM
 ===Non-HTML5 Event Model===
 The following tag is to support the event model in non-HTML5 browsers:
 {{{
-<meta name="eventUrl" content="componentFramework/Event.html"/>
+<meta name="eventUrl" content="http://component.domain.com/Event.html"/>
 }}}
-`"componentFramework/Event.html"` must point to the location of the framework's `Event.html` file.
+`"http://component.domain.com/Event.html"` must point to the location of the framework's `Event.html` file, hosted in the same domain as the component.
 
 ==Meta for Including a Component==
 
