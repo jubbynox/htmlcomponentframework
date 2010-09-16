@@ -35,7 +35,7 @@ The following tag is to support the event model in non-HTML5 browsers:
 {{{
 <meta name="eventUrl" content="http://component.domain.com/Event.html"/>
 }}}
-`"http://component.domain.com/Event.html"` must point to the location of the framework's `Event.html` file, hosted in the same domain as the component.
+`"http://component.domain.com/Event.html"` must point to the location of the framework's `Event.html` file, hosted in the same domain as the component. Go to this project's downloads section for a copy of this file.
 
 ==Meta for Including a Component==
 
