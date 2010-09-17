@@ -1,0 +1,15 @@
+<html>
+	<head>
+		<meta name="eventUrl" content="http://htmlcomponentframework.googlecode.com/svn/examples/hello-world/Event.html"/>
+		<meta scheme="JSON" name="includeComponent" content='{"name":"HelloWorldComponent","url":"HelloWorld.html"}' />
+		<link rel="stylesheet" type="text/css" href="http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ComponentFramework.css"/>
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jquery-1.3.2.min.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/json2.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jsonschema-b4.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ComponentFramework.js"></script>
+	</head>
+	<body onload="ComponentFramework.loadAndRender();">
+		<div id="helloWorldComponentId" title="HelloWorldComponent" class="cf_component_marker" />
+			<button type="button" onclick="ComponentFramework.getComponent('helloWorldComponentId').fireEvent('greetWorld');">greet world</button>
+	</body>
+</html>
