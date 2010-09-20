@@ -1,6 +1,76 @@
 #summary Examples
 #labels Featured
 
+=Hello World=
+The following is an example of placing a component on a web page and component communication.<br>
+The "Hello World" component displays the time-worn phrase when it receives a `greetWorld` event. It also displays a "hide greeting" button that raises a `greetingHidden` event.<br>
+The "Hello World" web page includes the component in-line and fires the 'greetWorld' event at it when the "greet world" button is pressed.
+
+The working example can be found here: http://htmlcomponentframework.googlecode.com/svn/examples/hello-world/HelloWorld.html
+
+==Hello World Component==
+===HTML===
+The following HTML (`HelloWorldComponent.html`) describes the Hello World component's events and content:
+{{{
+<html>
+	<head>
+		<meta name="HTMLComponent" />
+		<meta name="eventUrl" content="http://htmlcomponentframework.googlecode.com/svn/examples/hello-world/Event.html"/>
+		<meta scheme="PartialJSONSchema" name="acceptsEvent" content='{"greetWorld": {"type": "null"}}' />
+		<meta scheme="PartialJSONSchema" name="raisesEvent" content='{"greetingHidden": {"type": "null"}}' />
+		<link rel="stylesheet" type="text/css" href="http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ComponentFramework.css"/>
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jquery-1.3.2.min.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/json2.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jsonschema-b4.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ComponentFramework.js"></script>
+		<script type="text/javascript" src="HelloWorldComponent.js"></script>
+	</head>
+	<body>
+		<div id="togglePanel" style="display:none">Hello World! <button id="hideGreetingButton" type="button">hide greeting</button></div>
+	</body>
+</html>
+}}}
+
+===!JavaScript===
+The following !JavaScript (`HelloWorldComponent.js`) describes the Hello World component's functionality:
+{{{
+function HelloWorldComponent()
+{
+	jQuery('#hideGreetingButton').click(function(){hideGreeting();});
+	
+	this.greetWorld = function()
+	{
+		jQuery('#togglePanel').show();
+	}
+	
+	function hideGreeting()
+	{
+		jQuery('#togglePanel').hide();
+		ComponentFramework.raiseEvent("greetingHidden");
+	}
+}
+}}}
+
+==Hello World Web Page==
+The following HTML (`HelloWorld.html`) includes the component in-line and describes the hosting page's content:
+{{{
+<html>
+	<head>
+		<meta name="eventUrl" content="http://htmlcomponentframework.googlecode.com/svn/examples/hello-world/Event.html"/>
+		<meta scheme="JSON" name="includeComponent" content='{"name":"HelloWorldComponent","url":"HelloWorldComponent.html"}' />
+		<link rel="stylesheet" type="text/css" href="http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ComponentFramework.css"/>
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jquery-1.3.2.min.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/json2.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jsonschema-b4.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ComponentFramework.js"></script>
+	</head>
+	<body onload="ComponentFramework.loadAndRender();">
+		<button type="button" onclick="ComponentFramework.getComponent('helloWorldComponentId').fireEvent('greetWorld');">greet world</button>
+		<div id="helloWorldComponentId" title="HelloWorldComponent" class="cf_component_marker" ></div>
+	</body>
+</html>
+}}}
+
 =Banacek Website=
 http://www.banacek.org
 
