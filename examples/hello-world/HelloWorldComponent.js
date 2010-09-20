@@ -1,6 +1,6 @@
 function HelloWorldComponent()
 {
-	jQuery('#hideGreetingButton').click(function(){hideGreeting();});
+	jQuery('#hideGreetingButton').click(hideGreeting);
 	
 	this.greetWorld = function()
 	{
