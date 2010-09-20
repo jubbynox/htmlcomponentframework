@@ -36,7 +36,7 @@ The following !JavaScript (`HelloWorldComponent.js`) describes the Hello World c
 {{{
 function HelloWorldComponent()
 {
-	jQuery('#hideGreetingButton').click(function(){hideGreeting();});
+	jQuery('#hideGreetingButton').click(hideGreeting);
 	
 	this.greetWorld = function()
 	{
