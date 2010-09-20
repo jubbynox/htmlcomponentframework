@@ -172,9 +172,13 @@ function Event()
         var eventPropertiesJSON = unescape(/.*eventProperties=([^&]*)/.exec(event.data)[1]);
         
         var origin = event.origin;
+        if (origin == 'null')
+        {
+        	origin = 'file://';	// Chrome makes the origin 'null' if testing from file system.
+        }
         if (/:$/.test(origin))
 		{
-			origin += "//";	// Bloody IE.
+			origin += "//";	// IE.
 		}
 
         // Invoke event.
@@ -230,17 +234,21 @@ function Event()
 	 */
 	Event.informParentOfEventUrl = function(componentId)
 	{
-		// Get parent eventUrl.
-		var parentEventUrlSearch = /.*parentEventUrl=([^&]*)/.exec(location.search);
-    	if (parentEventUrlSearch != null)
-    	{
-    		parentEventUrl = unescape(parentEventUrlSearch[1]);
-    	}
-		
-    	// Raise the event (even if an event URL has not been defined - this will be used to indicate that the component has loaded).
-    	var eventProperties = new Object();
-    	eventProperties.eventUrl = Event.getEventUrl();
-    	Event.raise(componentId, Event.REGISTER_CHILD_EVENT_URL, eventProperties);
+		// Check that there is a parent (assumes that child components will have search parameters).
+		if (location.search != '')
+		{
+			// Get parent eventUrl.
+			var parentEventUrlSearch = /.*parentEventUrl=([^&]*)/.exec(location.search);
+	    	if (parentEventUrlSearch != null)
+	    	{
+	    		parentEventUrl = unescape(parentEventUrlSearch[1]);
+	    	}
+			
+	    	// Raise the event (even if an event URL has not been defined - this will be used to indicate that the component has loaded).
+	    	var eventProperties = new Object();
+	    	eventProperties.eventUrl = Event.getEventUrl();
+	    	Event.raise(componentId, Event.REGISTER_CHILD_EVENT_URL, eventProperties);
+		}
 	};
 	
 	/**

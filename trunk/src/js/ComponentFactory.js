@@ -232,7 +232,7 @@ function ComponentFactory()
 	    var retVal = true;
 	    
 	    // Get the full class name.
-	    var className = /\/([^\/\.]+)\.[^\/]+$/.exec(componentClass.url)[1];
+	    var className = /([^\/\.]+)\.[^\/]+$/.exec(componentClass.url)[1];
 	    
 	    // Iterate over the parent class names.
 	    for (var index in parentClassNames)
