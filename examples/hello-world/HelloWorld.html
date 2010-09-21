@@ -7,9 +7,12 @@
 		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/json2.js"></script> 
 		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jsonschema-b4.js"></script> 
 		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ComponentFramework.js"></script>
+		<script type="text/javascript" src="HelloWorld.js"></script>
 	</head>
-	<body onload="ComponentFramework.loadAndRender();">
-		<button type="button" onclick="ComponentFramework.getComponent('helloWorldComponentId').fireEvent('greetWorld');">greet world</button>
-		<div id="helloWorldComponentId" title="HelloWorldComponent" class="cf_component_marker" ></div>
+	<body>
+		<button id="greetWorldButton" type="button">greet world</button>
+		<div id="helloWorldComponentId" title="HelloWorldComponent" class="cf_component_marker">
+			<input type="hidden" name="loadedCallback" value="helloWorldComponentLoaded" />
+		</div>
 	</body>
 </html>
