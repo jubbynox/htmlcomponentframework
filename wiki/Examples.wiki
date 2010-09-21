@@ -1,10 +1,11 @@
 #summary Examples
 #labels Featured
+<wiki:toc max_depth="1" />
 
 =Hello World=
 The following is an example of placing a component on a web page and component communication.<br>
 The "Hello World" component displays the time-worn phrase when it receives a `greetWorld` event. It also displays a "hide greeting" button that raises a `greetingHidden` event.<br>
-The "Hello World" web page includes the component in-line and fires the 'greetWorld' event at it when the "greet world" button is pressed.
+The "Hello World" web page includes the component in-line and fires the 'greetWorld' event at it when the "greet world" button is pressed. The visibility of the "greet world" button is toggled for each event sent and received.
 
 The working example can be found here: http://htmlcomponentframework.googlecode.com/svn/examples/hello-world/HelloWorld.html
 
@@ -52,7 +53,8 @@ function HelloWorldComponent()
 }}}
 
 ==Hello World Web Page==
-The following HTML (`HelloWorld.html`) includes the component in-line and describes the hosting page's content:
+===HTML===
+The following HTML (`HelloWorld.html`) includes the component in-line and describes the web page's content:
 {{{
 <html>
 	<head>
@@ -63,12 +65,41 @@ The following HTML (`HelloWorld.html`) includes the component in-line and descri
 		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/json2.js"></script> 
 		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jsonschema-b4.js"></script> 
 		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ComponentFramework.js"></script>
+		<script type="text/javascript" src="HelloWorld.js"></script>
 	</head>
-	<body onload="ComponentFramework.loadAndRender();">
-		<button type="button" onclick="ComponentFramework.getComponent('helloWorldComponentId').fireEvent('greetWorld');">greet world</button>
-		<div id="helloWorldComponentId" title="HelloWorldComponent" class="cf_component_marker" ></div>
+	<body>
+		<button id="greetWorldButton" type="button">greet world</button>
+		<div id="helloWorldComponentId" title="HelloWorldComponent" class="cf_component_marker">
+			<input type="hidden" name="loadedCallback" value="helloWorldComponentLoaded" />
+		</div>
 	</body>
 </html>
+}}}
+
+===!JavaScript===
+The following !JavaScript (`HelloWorld.js`) describes the web page's functionality:
+{{{
+jQuery(window).load(function()
+{
+	ComponentFramework.loadAndRender();
+	jQuery('#greetWorldButton').click(greetWorld);
+});
+
+function helloWorldComponentLoaded()
+{
+	ComponentFramework.getComponent('helloWorldComponentId').addEventListener("greetingHidden", greetingHidden);
+}
+
+function greetWorld()
+{
+	jQuery('#greetWorldButton').hide();
+	ComponentFramework.getComponent('helloWorldComponentId').fireEvent('greetWorld');
+}
+
+function greetingHidden()
+{
+	jQuery('#greetWorldButton').show();
+}
 }}}
 
 =Banacek Website=
