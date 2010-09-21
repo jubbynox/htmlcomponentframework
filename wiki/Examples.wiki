@@ -4,7 +4,7 @@
 
 =Hello World=
 The following is an example of placing a component on a web page and component communication.<br>
-The "Hello World" component displays the time-worn phrase when it receives a `greetWorld` event. It also displays a "hide greeting" button that raises a `greetingHidden` event.<br>
+The "Hello World" component displays the time-worn phrase when it receives a `greetWorld` event. It also displays a "hide greeting" button that hides the phrase and raises a `greetingHidden` event.<br>
 The "Hello World" web page includes the component in-line and fires the 'greetWorld' event at it when the "greet world" button is pressed. The visibility of the "greet world" button is toggled for each event sent and received.
 
 The working example can be found here: http://htmlcomponentframework.googlecode.com/svn/examples/hello-world/HelloWorld.html
