@@ -1,5 +1,6 @@
+ * [Introduction]
+ * [WritingComponents Writing Components]
  * [PlacingComponentsOnAPage Placing Components on a Page]
  * [CommunicatingWithComponents Communicating with Components]
- * [WritingComponents Writing Components]
  * [Reference]
  * [Examples]
