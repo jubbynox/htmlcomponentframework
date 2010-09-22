@@ -1,4 +1,5 @@
 #summary Introduction to using the framework.
+#labels Featured
 
 The HTML Component Framework allows the developer to create reusable modular GUI parts (components) using HTML, CSS and !JavaScript files. These components can then be used to build web applications.
 
