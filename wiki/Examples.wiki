@@ -161,7 +161,7 @@ function addTrack()
 }}}
 
 =Citroën 2CV Information=
-The following example uses the carousel component from the Banacek site to create a pictoral history of the 2CV. Clicking on the images displays some information about that particular model:
+The following example uses the carousel component from the Banacek site to create a pictorial history of the 2CV. Clicking on an image displays some information about that particular model:
 http://htmlcomponentframework.googlecode.com/svn/examples/2cv-info/2cvInfo.html
 
 This also demonstrates the cross-domain application of components, as the Banacek components are hosted in a different location to the examples.
