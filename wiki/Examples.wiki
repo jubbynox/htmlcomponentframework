@@ -159,3 +159,9 @@ function addTrack()
 	ComponentFramework.getComponent('audioPlayerComponentId').fireEvent('add', eventProperties);
 }
 }}}
+
+=Citroën 2CV Information=
+The following example uses the carousel component from the Banacek site:
+http://htmlcomponentframework.googlecode.com/svn/examples/2cv-info/2cvInfo.html
+
+This also demonstrates the cross-domain application of components, as the Banacek components are hosted in a different location to the examples.
