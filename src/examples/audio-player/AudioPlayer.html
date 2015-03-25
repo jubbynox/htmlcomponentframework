@@ -1,0 +1,22 @@
+
+<html>
+	<head>
+		<meta name="eventUrl" content="http://htmlcomponentframework.googlecode.com/svn/examples/Event.html"/>
+		<meta scheme="JSON" name="includeComponent" content='{"name":"AudioPlayerComponent","url":"http://www.banacek.org/components/musicPlayer/MusicPlayer.html"}' />
+		<link rel="stylesheet" type="text/css" href="http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ComponentFramework.css"/>
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jquery-1.3.2.min.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/json2.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/3rdpartylibs/jsonschema-b4.js"></script> 
+		<script type="text/javascript" src="http://htmlcomponentframework.googlecode.com/svn/releases/1.0/ComponentFramework.js"></script>
+		<script type="text/javascript" src="AudioPlayer.js"></script>
+	</head>
+	<body>
+		Album image URL: <input type="text" id="albumImgUrlId" value="http://www.banacek.org/albumImgs/Banacek/Thumb.png"/ size="100"><br/>
+		Album name: <input type="text" id="albumNameId" value="Banacek"/><br/>
+		Track number: <input type="text" id="trackNumberId" value="4" size="2"/><br/>
+		Track name: <input type="text" id="trackNameId" value="Queen Bee"/><br/>
+		Track URL: <input type="text" id="trackUrlId" value="http://www.banacek.org/GetTrackUrl?trackId=banacek4" size="100"/><br/>
+		<button id="addTrackButton" type="button">add track</button>
+		<div id="audioPlayerComponentId" title="AudioPlayerComponent" class="cf_component_marker"></div>
+	</body>
+</html>
